@@ -1,0 +1,74 @@
+{
+    "kanataHost": "127.0.0.1",
+    "kanataPort": 4039,
+    "customKeys": {
+        "keyCodeMap": {
+            "Ü": 186
+        }
+    }, 
+    "customAliases": {
+        "EXT": ["F13"],
+        "SYM": ["SHIFT", "F14"],
+        "QWR": ["SHIFT", "F24"],
+        "GAL": ["SHIFT", "F23"],
+
+        "MLEFT": ["LControl", "F15"],
+        "MMIDL": ["LControl", "F16"],
+        "MRGHT": ["LControl", "F17"],
+        "MBACK": ["LControl", "F18"],
+        "MFWRD": ["LControl", "F19"],
+
+        "MWLFT": ["LControl","F20"],
+        "MWDWN": ["LControl","F21"],
+        "MWUP":  ["LControl","F22"],
+        "MWRGT": ["LControl","F23"],
+
+        "MVCL": ["RControl", "F15"],
+        "MVCD": ["RControl", "F16"],
+        "MVCU": ["RControl", "F17"],
+        "MVCR": ["RControl", "F18"]
+    },
+    "userLayouts": [
+        {
+            "name": "Qwerty",
+            "keys": [
+                ["ESC", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "BSPC", "INS"],
+                ["TAB", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\", "DEL"],
+                ["EXT", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'", "ENTER", "PGUP"],
+                ["LSHFT", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "RSHFT", "↑", "PGDN"],
+                ["LCTRL", "WIN", "LALT", " ", "RALT", "FN", "RCTRL", "←", "↓", "→"]
+            ]
+        },
+        {
+            "name": "Gallium",
+            "keys": [
+                ["ESC", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "BSPC", "INS"],
+                ["TAB","B", "L", "D", "C", "Z", "J", "F", "O", "U", ",", "[", "]","\\", "DEL"],
+                ["EXT", "N", "R", "T", "S", "V", "Y", "H", "A", "E", "I", "/", "ENTER", "PGUP"],
+                ["LSHFT", "Q", "M", "W", "G", "X", "K", "P", "'", ";", ".", "RSHFT", "↑", "PGDN"],
+                ["LCTRL", "WIN", "LALT", " ", "RALT", "FN", "RCTRL", "←", "↓", "→"]
+            ]
+        },
+        {
+            "name": "Navigation",
+            "keys": [
+                ["lrld", "CAPS", "CTRL", "SHIFT", "ALT", "QWR", "GAL", "", "", "", "", "", "", "BSPC"],
+                ["TAB", "MBACK", "MWLFT", "MWDWN", "MWUP", "MWRGT", "HOME", "PGDN", "PGUP", "END", "", "", "", "\\", "DEL"],
+                ["EXT", "MFWRD", "MLEFT", "MMIDL", "MRGHT", "", "←", "↓", "↑", "→", "ESC", "", "ENTER", "PGUP"],
+                ["LSHFT", "MVCL", "MVCD", "MVCU", "MVCR", "", "", "", "", "", "", "RSHFT", "↑", "PGDN"],
+                ["LCTRL", "WIN", "LALT", " ", "RALT", "FN", "RCTRL", "←", "↓", "→"]
+            ]
+        },
+        {
+            "name": "Symbols",
+            "keys": [
+                ["", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "BSPC"],
+                ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                ["", "", "", "", "", "", "", "", "", "", "", "", "ENTER", ""],
+                ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                ["", "", "", " ", "", "", "", "", "", ""]
+            ]
+        }
+    ],
+    "defaultUserLayout": "qwerty"
+}
