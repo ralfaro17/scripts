@@ -14,34 +14,45 @@
 )
 
 (deflayer qwerty
-  @grvesc   1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab       q    w    e    r    t    y    u    i    o    p    [    ]    \
-  @ext      a    s    d    f    g    h    j    k    l    ;    '         ret
-  lsft      z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           @sym                ralt rmet rctl
+  grv       1    2    3    4    5    6    7    8     9    0    -    =    bspc
+  tab       q    w    e    r    t    y    u    i     o    p    [    ]    \
+  @numpad   a    s    d    @nav1     g    h    @nav2 k    l    ;    '         ret
+  lsft      z    x    c    v    b    n    m    ,     .    /    rsft
+  lctl      lmet lalt           @sym                ralt rmet rctl
 )
 
 ;; Gallium Rowstag angle modded
 (deflayer gallium
-  @grvesc   1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab       b    l    d    c    z    j    f    o    u    ,    [    ]    \
-  @ext      n    r    t    s    v    y    h    a    e    i    /         ret
-  lsft      q    m    w    g    x    k    p    '    ;    .    rsft
+  grv   1    2    3    4    5     6    7    8      9    0    -    =    bspc
+  tab       b    l    d    c      z    j    f      o    u    ,    [    ]    \
+  @numpad   n    r    t    @navg1 v    y    @navg2 a    e    i    /         ret
+  lsft      q    m    w    g      x    k    p      '    ;    .    rsft
   lctl lmet lalt           @sym                ralt rmet rctl
+)
+
+(defvirtualkeys
+  ;; 1. The virtual key "holds" the layer
+  v-numpad (layer-while-held numpad)
 )
 
 (defalias
   ;; tap: esc, hold: toggle layer-switching layer while held
   ;; grl (tap-hold 200 200 grv (layer-toggle layers))
-  gal (multi sft f23 (layer-switch gallium))
-  qwr (multi sft f24 (layer-switch qwerty))
+  gal (multi rctl f23 (layer-switch gallium))
+  qwr (multi rctl f24 (layer-switch qwerty))
 
   ;; layer keys
-  ext (multi f13 (layer-while-held navigation))
+  nav1 (multi f13 (tap-hold 200 200 f (layer-while-held navigation1)))
+  nav2 (multi f13 (tap-hold 200 200 j (layer-while-held navigation2)))
+  navg1 (multi f13 (tap-hold 200 200 s (layer-while-held navigation1)))
+  navg2 (multi f13 (tap-hold 200 200 h (layer-while-held navigation2)))
   sym (tap-hold 200 200 spc (layer-while-held symbols))
+  numpad (tap-hold 200 200 caps (layer-while-held numpad))
 
-  ;; remaps
-  grvesc (tap-hold 300 300 grv esc)
+  numpad-tg (multi f14 (on-press toggle-vkey v-numpad))
+
+  ;; remaps 
+  grvesc (tap-hold 300 150 grv esc)
 
 )
 
@@ -90,13 +101,13 @@
   mmidl  (multi ctl f16 mmid)
   mrght  (multi ctl f17 mrgt)
   mback  (multi ctl f18 mbck)
-  mfwrd  (multi ctl f19 mfwd)
+  mfwrd  (multi ctl f19 mfwd) 
 
   ;; mouse wheel
-  mwlft (multi ctl f20 (tap-hold $mouse-tap-repress-timeout $mouse-hold-timeout mwl @mouse-wheel-left))
-  mwdwn (multi ctl f21 (tap-hold $mouse-tap-repress-timeout $mouse-hold-timeout mwd @mouse-wheel-down))
-  mwup  (multi ctl f22 (tap-hold $mouse-tap-repress-timeout $mouse-hold-timeout mwu @mouse-wheel-up))
-  mwrgt (multi ctl f23 (tap-hold $mouse-tap-repress-timeout $mouse-hold-timeout mwr @mouse-wheel-right))
+  mwlft (multi (tap-hold $mouse-tap-repress-timeout $mouse-hold-timeout mwl @mouse-wheel-left))
+  mwdwn (multi (tap-hold $mouse-tap-repress-timeout $mouse-hold-timeout mwd @mouse-wheel-down))
+  mwup  (multi (tap-hold $mouse-tap-repress-timeout $mouse-hold-timeout mwu @mouse-wheel-up))
+  mwrgt (multi (tap-hold $mouse-tap-repress-timeout $mouse-hold-timeout mwr @mouse-wheel-right))
 
   ;; move cursor
   mvcl (multi rctl f15 (movemouse-left $mouse-move-interval $mouse-move-distance))
@@ -115,22 +126,36 @@
   _    _    _              _              _    _    _
 )
 
-;; WIP
-(deflayer navigation
-  lrld caps   lctl   lsft   lalt   @qwr      @gal    _    _    _    _   _ _ _
-  _    @mback   @mwlft @mwdwn @mwup  @mwrgt home pgdn pgup end  _   _ _ _
-  _    @mfwrd   @mleft @mmidl @mrght _      left down up   rght esc _ _
-  _    @mvcl  @mvcd  @mvcu  @mvcr  _      _    _    _    _    _   _
-  _    _    _             spc             _    _    _
+(deflayer navigation1
+  esc  XX   @qwr @gal XX    XX XX   XX   @qwr @gal XX   XX  XX  bspc
+  _    XX   XX   XX   XX    XX home pgdn pgup end  del  XX  XX  lrld
+  esc  lctl lsft lalt @nav1 XX left down up   rght ret  esc ret
+  _    XX   XX   XX   XX    XX XX   XX   XX   XX   bspc _
+  _    _    _             spc            _    _    _
 )
 
-;; TODO
+(deflayer navigation2
+  esc  XX     @qwr   @gal   XX     XX     XX   XX    @qwr @gal XX   XX  XX bspc
+  _    @mback @mwlft @mwdwn @mwup  @mwrgt XX   XX    XX   XX   XX   XX  XX lrld
+  esc  @mfwrd @mleft @mmidl @mrght XX     XX   @nav2 ralt rsft rctl esc ret
+  _    @mvcl  @mvcd  @mvcu  @mvcr  XX     XX   XX    XX   XX   XX   XX
+  _    _    _             spc                        _    _    _
+)
+
 (deflayer symbols
-  _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _
+  esc  f1   f2    f3   f4   f5   f6   f7   f8   f9   f10  f11  f12   _
+  _    grv  S-grv S-3  S-7  S-\  S-6  S-[  S-]  [    ]    XX   XX    lrld
+  esc  S-1  S--   S-;  =    S-4  S-2  S-9  S-0  '    ;    esc  _
+  _    S-5  S-/   S-8  S-=  \    /    -    S-,  S-.  S-'  _
   _    _    _              _              _    _    _
+)
+
+(deflayer numpad
+  esc      XX   @qwr @gal XX    XX XX   @numpad-tg  kp/  kp*  kp-  XX  XX  bspc
+  _        XX   XX   XX   XX    XX XX   kp7         kp8  kp9  kp+  XX  XX  lrld
+  @numpad  lctl lsft lalt XX    XX nlck kp4         kp5  kp6  kp+  esc ret
+  _        XX   XX   XX   XX    XX kp0  kp1         kp2  kp3  ret  _
+  _        _    _             spc                   _  _  ret
 )
 
 ;; TODO
