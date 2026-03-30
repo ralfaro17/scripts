@@ -44,8 +44,8 @@
   ;; layer keys
   nav1 (multi f13 (tap-hold 200 200 f (layer-while-held navigation1)))
   nav2 (multi f13 (tap-hold 200 200 j (layer-while-held navigation2)))
-  navg1 (multi f13 (tap-hold 200 200 s (layer-while-held navigation1)))
-  navg2 (multi f13 (tap-hold 200 200 h (layer-while-held navigation2)))
+  navg1 (multi f13 (tap-hold 200 200 s (layer-while-held navigationGallium1)))
+  navg2 (multi f13 (tap-hold 200 200 h (layer-while-held navigationGallium2)))
   sym (tap-hold 200 200 spc (layer-while-held symbols))
   numpad (tap-hold 200 200 caps (layer-while-held numpad))
 
@@ -138,6 +138,24 @@
   esc  XX     @qwr   @gal   XX     XX     XX   XX    @qwr @gal XX   XX  XX bspc
   _    @mback @mwlft @mwdwn @mwup  @mwrgt XX   XX    XX   XX   XX   XX  XX lrld
   esc  @mfwrd @mleft @mmidl @mrght XX     XX   @nav2 ralt rsft rctl esc ret
+  _    @mvcl  @mvcd  @mvcu  @mvcr  XX     XX   XX    XX   XX   XX   XX
+  _    _    _             spc                        _    _    _
+)
+
+;; repeated layer with different trigger for gallium layout (pending to refactor)
+(deflayer navigationGallium1
+  esc  XX   @qwr @gal XX  XX XX   XX   @qwr @gal XX   XX  XX  bspc
+  _    XX   XX   XX   XX    XX home pgdn pgup end  del  XX  XX  lrld
+  esc  lctl lsft lalt @navg1 XX left down up   rght ret  esc ret
+  _    XX   XX   XX   XX    XX XX   XX   XX   XX   bspc _
+  _    _    _             spc            _    _    _
+)
+
+;; repeated layer with different trigger for gallium layout (pending to refactor)
+(deflayer navigationGallium2
+  esc  XX     @qwr   @gal   XX     XX     XX   XX    @qwr @gal XX   XX  XX bspc
+  _    @mback @mwlft @mwdwn @mwup  @mwrgt XX   XX    XX   XX   XX   XX  XX lrld
+  esc  @mfwrd @mleft @mmidl @mrght XX     XX   @navg2 ralt rsft rctl esc ret
   _    @mvcl  @mvcd  @mvcu  @mvcr  XX     XX   XX    XX   XX   XX   XX
   _    _    _             spc                        _    _    _
 )
