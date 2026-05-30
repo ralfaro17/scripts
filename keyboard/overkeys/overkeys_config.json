@@ -55,11 +55,11 @@
         {
             "name": "Navigation1",
             "keys": [
-                ["ESC", "", "QWR", "GAL", "", "", "", "", "QWR", "GAL", "", "", "", "BSPC"],
-                ["", "", "", "", "", "HOME", "PGDN", "PGUP", "END", "DEL", "", "", "LRLD", "DEL"],
-                ["CTRL", "SHIFT", "ALT", "NAV1", "", "←", "↓", "↑", "→", "ENTER", "ESC", "ENTER", "PGUP"],
-                ["", "", "", "", "", "", "", "", "", "BSPC", "RSHFT", "↑", "PGDN"],
-                ["WIN", "LALT", " ", "RALT", "FN", "RCTRL", "←", "↓", "→"]
+                ["ESC",   "",      "QWR",   "GAL", "",     "", "",     "",     "QWR",   "GAL", "",     "",      "",      "BSPC"],
+                [         "",      "",      "",    "",     "", "HOME", "PGDN", "PGUP",  "END", "",     "",      "",      "LRLD", "DEL"],
+                [         "CTRL",  "SHIFT", "ALT", "NAV1", "", "←",    "↓",    "↑",     "→",   "TAB",  "",      "ENTER", "PGUP"],
+                [         "",      "",      "",    "",     "", "ESC",  "BSPC", "ENTER", "DEL", "",     "RSHFT", "↑",     "PGDN"],
+                ["WIN",   "LALT",  " ",                                        "RALT",  "FN",  "RCTRL", "←",    "↓",     "→"]
             ]
         },
         {

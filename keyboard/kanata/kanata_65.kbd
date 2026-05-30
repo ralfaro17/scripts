@@ -128,9 +128,9 @@
 
 (deflayer navigation1
   esc  XX   @qwr @gal XX    XX XX   XX   @qwr @gal XX   XX  XX  bspc
-  _    XX   XX   XX   XX    XX home pgdn pgup end  del  XX  XX  lrld
-  esc  lctl lsft lalt @nav1 XX left down up   rght ret  esc ret
-  _    XX   XX   XX   XX    XX XX   XX   XX   XX   bspc _
+  _    XX   XX   XX   XX    XX home pgdn pgup end  XX   XX  XX  lrld
+  esc  lctl lsft lalt @nav1 XX left down up   rght tab  XX  ret
+  _    XX   XX   XX   XX    XX esc  bspc ret  del  XX   _
   _    _    _             spc            _    _    _
 )
 
