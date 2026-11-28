@@ -5,37 +5,28 @@
         "keyCodeMap": {
             "Ü": 186
         }
-    }, 
+    },
     "customAliases": {
         "NAV1": ["F13"],
         "NAV2": ["F13"],
-        "SYM": ["SHIFT", "F14"],
-        "QWR": ["RControl", "F24"],
-        "GAL": ["RControl", "F23"],
+        "TG":   ["F14"],
 
-        "TG": ["F14"],
+        "MLEFT": ["F15"],
+        "MMIDL": ["F16"],
+        "MRGHT": ["F17"],
+        "MBACK": ["F18"],
+        "MFWRD": ["F19"],
 
-        "MLEFT": ["LControl", "F15"],
-        "MMIDL": ["LControl", "F16"],
-        "MRGHT": ["LControl", "F17"],
-        "MBACK": ["LControl", "F18"],
-        "MFWRD": ["LControl", "F19"],
-
-        "MWLFT": ["LControl","F20"],
-        "MWDWN": ["LControl","F21"],
-        "MWUP":  ["LControl","F22"],
-        "MWRGT": ["LControl","F23"],
-
-        "MVCL": ["RControl", "F15"],
-        "MVCD": ["RControl", "F16"],
-        "MVCU": ["RControl", "F17"],
-        "MVCR": ["RControl", "F18"]
+        "MVCL": ["F20"],
+        "MVCD": ["F21"],
+        "MVCU": ["F22"],
+        "MVCR": ["F23"]
     },
     "userLayouts": [
         {
-            "name": "Qwerty",
+            "name": "qwerty",
             "keys": [
-                ["`" ,"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "BSPC"],
+                ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "BSPC"],
                 ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\", "DEL"],
                 ["A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'", "ENTER", "PGUP"],
                 ["Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "RSHFT", "↑", "PGDN"],
@@ -43,47 +34,47 @@
             ]
         },
         {
-            "name": "Gallium",
+            "name": "gallium",
             "keys": [
-                ["`" ,"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "BSPC"],
-                ["B", "L", "D", "C", "Z", "J", "F", "O", "U", ",", "[", "]","\\", "DEL"],
-                [ "N", "R", "T", "S", "V", "Y", "H", "A", "E", "I", "/", "ENTER", "PGUP"],
-                [ "Q", "M", "W", "G", "X", "K", "P", "'", ";", ".", "RSHFT", "↑", "PGDN"],
-                [ "WIN", "LALT", " ", "RALT", "FN", "RCTRL", "←", "↓", "→"]
+                ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "BSPC"],
+                ["B", "L", "D", "C", "Z", "J", "F", "O", "U", ",", "[", "]", "\\", "DEL"],
+                ["N", "R", "T", "S", "V", "Y", "H", "A", "E", "I", "/", "ENTER", "PGUP"],
+                ["Q", "M", "W", "G", "X", "K", "P", "'", ";", ".", "RSHFT", "↑", "PGDN"],
+                ["WIN", "LALT", " ", "RALT", "FN", "RCTRL", "←", "↓", "→"]
             ]
         },
         {
-            "name": "Navigation1",
+            "name": "navigation",
             "keys": [
-                ["ESC",   "",      "QWR",   "GAL", "",     "", "",     "",     "QWR",   "GAL", "",     "",      "",      "BSPC"],
-                [         "",      "",      "",    "",     "", "HOME", "PGDN", "PGUP",  "END", "",     "",      "",      "LRLD", "DEL"],
-                [         "CTRL",  "SHIFT", "ALT", "NAV1", "", "←",    "↓",    "↑",     "→",   "TAB",  "",      "ENTER", "PGUP"],
-                [         "",      "",      "",    "",     "", "ESC",  "BSPC", "ENTER", "DEL", "",     "RSHFT", "↑",     "PGDN"],
-                ["WIN",   "LALT",  " ",                                        "RALT",  "FN",  "RCTRL", "←",    "↓",     "→"]
+                ["ESC", "", "QWR", "GAL", "", "", "", "", "QWR", "GAL", "", "", "", "BSPC"],
+                ["", "", "", "", "", "HOME", "PGDN", "PGUP", "END", "", "", "", "LRLD", "DEL"],
+                ["CTRL", "SHIFT", "ALT", "NAV1", "", "←", "↓", "↑", "→", "TAB", "", "ENTER", "PGUP"],
+                ["", "", "", "", "", "ESC", "BSPC", "ENTER", "DEL", "", "RSHFT", "↑", "PGDN"],
+                ["WIN", "LALT", " ", "RALT", "FN", "RCTRL", "←", "↓", "→"]
             ]
         },
         {
-            "name": "Navigation2",
+            "name": "mouse",
             "keys": [
                 ["ESC", "", "QWR", "GAL", "", "", "", "", "QWR", "GAL", "", "", "", "BSPC"],
                 ["MBACK", "MWLFT", "MWDWN", "MWUP", "MWRGT", "", "", "", "", "", "", "", "LRLD", "DEL"],
-                ["MFWRD", "MLEFT", "MMIDL", "MRGHT", "", "", "NAV2", "ALT", "SHIFT", "CTRL", "ESC", "ENTER", "PGUP"],
+                ["MFWRD", "MLEFT", "MMIDL", "MRGHT", "", "", "NAV2", "RALT", "RSHFT", "RCTRL", "ESC", "ENTER", "PGUP"],
                 ["MVCL", "MVCD", "MVCU", "MVCR", "", "", "", "", "", "", "RSHFT", "↑", "PGDN"],
                 ["WIN", "LALT", " ", "RALT", "FN", "RCTRL", "←", "↓", "→"]
             ]
         },
         {
-            "name": "Symbols",
+            "name": "symbols",
             "keys": [
                 ["ESC", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "BSPC"],
-                ["`", "~", "#", "&", "|", "^", "{", "}", "[", "]", "", "", "", "DEL"],
-                ["!", "_", ":", "=", "$", "@", "(", "}", "'", ";", "ESC", "ENTER", "PGUP"],
+                ["`", "~", "#", "&", "|", "^", "{", "}", "[", "]", "", "", "LRLD", "DEL"],
+                ["!", "_", ":", "=", "$", "@", "(", ")", "'", ";", "ESC", "ENTER", "PGUP"],
                 ["%", "?", "*", "+", "\\", "/", "-", "<", ">", "\"", "RSHFT", "↑", "PGDN"],
                 ["WIN", "LALT", " ", "RALT", "FN", "RCTRL", "←", "↓", "→"]
             ]
         },
         {
-            "name": "Numpad",
+            "name": "numpad",
             "keys": [
                 ["ESC", "", "QWR", "GAL", "", "", "", "TG", "/", "*", "-", "", "", "BSPC"],
                 ["", "", "", "", "", "", "7", "8", "9", "+", "", "", "LRLD", "DEL"],

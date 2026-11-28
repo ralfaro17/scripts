@@ -1,0 +1,201 @@
+;; =============================================================================
+;; Shared kanata config for every keyboard size.
+;;
+;; Don't load this file directly. Start kanata with a board file instead
+;; (65.kbd, 75.kbd, ...). Each board file sets its defcfg, defines the
+;; board-specific aliases listed below, then includes this file.
+;;
+;; Board-specific aliases every board file must define:
+;;   esc-key   what the physical Esc key does on the base layers
+;;
+;; Layers use deflayermap, so they map keys by name instead of by position.
+;; Keys a board doesn't have are simply never pressed, which is what lets the
+;; same layers work on 75%, 65%, 60% and 40% boards.
+;; =============================================================================
+
+;; Keys kanata processes. Function row, arrows and the nav cluster are left out
+;; on purpose: no layer remaps them, so they always pass through untouched.
+(defsrc
+  esc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+(defvar
+  tap-timeout   200
+  hold-timeout  200
+
+  mouse-tap-repress-timeout 300
+  mouse-hold-timeout        300
+  mouse-wheel-interval      50
+  mouse-wheel-distance      120   ;; 120 = one standard wheel notch
+  mouse-move-interval       20
+  mouse-move-distance       10
+)
+
+;; ---------------------------------------------------------------------------
+;; OverKeys signals
+;;
+;; OverKeys gets layer changes over kanata's TCP server (start kanata with
+;; -p 127.0.0.1:4039). The signals below only exist so OverKeys can highlight
+;; actions it can't otherwise see. Each signal is one bare F-key with no
+;; modifier, so clicks and scrolls are never modified (no Ctrl+click).
+;;
+;;   f13       nav layer triggers     f15-f19   mouse buttons
+;;   f14       numpad lock toggle     f20-f23   cursor movement
+;;
+;; On Linux the signals are dropped entirely: xkb maps F13-F24 to keysyms such
+;; as XF86Tools (KDE opens System Settings) and XF86TouchpadOff.
+;; ---------------------------------------------------------------------------
+(platform (win winiov2 wintercept)
+  (deftemplate sig (key action)
+    (multi $key $action)
+  )
+)
+
+;; kanata --check warns that $key is unused here. That's expected: on Linux
+;; the signal key is dropped on purpose.
+(platform (linux macos)
+  (deftemplate sig (key action)
+    $action
+  )
+)
+
+(deftemplate wheel (tap scroll)
+  (tap-hold $mouse-tap-repress-timeout $mouse-hold-timeout $tap $scroll)
+)
+
+(defvirtualkeys
+  ;; Holds the numpad layer while toggled on, acting as a numpad lock
+  v-numpad (layer-while-held numpad)
+)
+
+(defalias
+  ;; ---------- base layout switching ----------
+  qwr (layer-switch qwerty)
+  gal (layer-switch gallium)
+
+  ;; ---------- layer triggers (tap: key, hold: layer) ----------
+  ;; Qwerty triggers sit on F/J, Gallium triggers on the same physical keys,
+  ;; which type S/H in that layout.
+  nav-f  (t! sig f13 (tap-hold $tap-timeout $hold-timeout f (layer-while-held navigation)))
+  nav-j  (t! sig f13 (tap-hold $tap-timeout $hold-timeout j (layer-while-held mouse)))
+  nav-s  (t! sig f13 (tap-hold $tap-timeout $hold-timeout s (layer-while-held navigation)))
+  nav-h  (t! sig f13 (tap-hold $tap-timeout $hold-timeout h (layer-while-held mouse)))
+  sym    (tap-hold $tap-timeout $hold-timeout spc  (layer-while-held symbols))
+  numpad (tap-hold $tap-timeout $hold-timeout caps (layer-while-held numpad))
+
+  numpad-tg (t! sig f14 (on-press toggle-vkey v-numpad))
+
+  ;; ---------- mouse buttons ----------
+  mleft (t! sig f15 mlft)
+  mmidl (t! sig f16 mmid)
+  mrght (t! sig f17 mrgt)
+  mback (t! sig f18 mbck)
+  mfwrd (t! sig f19 mfwd)
+
+  ;; ---------- mouse wheel (tap: one notch, hold: continuous) ----------
+  mwlft (t! wheel mwl (mwheel-left  $mouse-wheel-interval $mouse-wheel-distance))
+  mwdwn (t! wheel mwd (mwheel-down  $mouse-wheel-interval $mouse-wheel-distance))
+  mwup  (t! wheel mwu (mwheel-up    $mouse-wheel-interval $mouse-wheel-distance))
+  mwrgt (t! wheel mwr (mwheel-right $mouse-wheel-interval $mouse-wheel-distance))
+
+  ;; ---------- cursor movement ----------
+  mvcl (t! sig f20 (movemouse-left  $mouse-move-interval $mouse-move-distance))
+  mvcd (t! sig f21 (movemouse-down  $mouse-move-interval $mouse-move-distance))
+  mvcu (t! sig f22 (movemouse-up    $mouse-move-interval $mouse-move-distance))
+  mvcr (t! sig f23 (movemouse-right $mouse-move-interval $mouse-move-distance))
+)
+
+;; =============================================================================
+;; Base layers
+;; Keys not listed are transparent, so they fall through to defsrc and type
+;; themselves. The first layer defined is the one kanata starts in.
+;; =============================================================================
+
+(deflayermap (qwerty)
+  esc  @esc-key
+  caps @numpad
+  f    @nav-f
+  j    @nav-j
+  spc  @sym
+)
+
+;; Gallium, rowstag angle mod
+;;   b  l  d  c  z     j  f  o  u  ,
+;;   n  r  t  s  v     y  h  a  e  i  /
+;;   q  m  w  g  x     k  p  '  ;  .
+(deflayermap (gallium)
+  esc  @esc-key
+  caps @numpad
+  spc  @sym
+
+  q b    w l    e d    r c    t z         y j    u f    i o    o u    p ,
+  a n    s r    d t    f @nav-s  g v      h y    j @nav-h  k a  l e    ; i    ' /
+  z q    x m    c w    v g    b x         n k    m p    , '    . ;    / .
+)
+
+;; =============================================================================
+;; Hold layers
+;; `_ XX` turns every unlisted defsrc key into a no-op. Keys that should keep
+;; working (modifiers, tab) are mapped to `_` to fall through explicitly.
+;; Esc is mapped on both `esc` and `grv`: on 65% boards the top-left key sends
+;; Esc, on 75% boards it sends grave.
+;; =============================================================================
+
+(deflayermap (navigation)
+  _    XX
+  esc  esc   grv  esc   caps esc   bspc bspc   ret  ret   spc  spc
+  tab  _     lsft _     rsft _
+  lctl _     lmet _     lalt _     ralt _      rmet _     rctl _
+
+  2 @qwr   3 @gal   8 @qwr   9 @gal
+
+  y home   u pgdn   i pgup   o end    \ lrld
+  a lctl   s lsft   d lalt
+  h left   j down   k up     l rght   ; tab
+  n esc    m bspc   , ret    . del
+)
+
+(deflayermap (mouse)
+  _    XX
+  esc  esc   grv  esc   caps esc   bspc bspc   ret  ret   spc  spc
+  tab  _     lsft _
+  lctl _     lmet _     lalt _     ralt _      rmet _     rctl _
+
+  2 @qwr   3 @gal   8 @qwr   9 @gal
+
+  q @mback   w @mwlft   e @mwdwn   r @mwup    t @mwrgt   \ lrld
+  a @mfwrd   s @mleft   d @mmidl   f @mrght
+  k ralt     l rsft     ; rctl     ' esc
+  z @mvcl    x @mvcd    c @mvcu    v @mvcr
+)
+
+;; Fully mapped, so no wildcard: unlisted keys stay transparent.
+(deflayermap (symbols)
+  esc esc   grv esc   caps esc
+
+  1 f1   2 f2   3 f3   4 f4   5 f5   6 f6   7 f7   8 f8   9 f9   0 f10   - f11   = f12
+
+  q grv   w S-grv   e S-3   r S-7   t S-\   y S-6   u S-[   i S-]   o [   p ]   [ XX   ] XX   \ lrld
+  a S-1   s S--     d S-;   f =     g S-4   h S-2   j S-9   k S-0   l '   ; ;   ' esc
+  z S-5   x S-/     c S-8   v S-=   b \     n /     m -     , S-,   . S-.   / S-'
+)
+
+;; caps stays transparent: while the numpad lock is on, it still reaches the
+;; base layer's @numpad (tap: Caps Lock, hold: numpad).
+(deflayermap (numpad)
+  _    XX
+  esc  esc   grv  esc   caps _     bspc bspc   ret  ret   spc  spc
+  tab  _     lsft _     rsft _
+  lctl _     lmet _     lalt _     ralt _      rmet _     rctl ret
+
+  2 @qwr   3 @gal   7 @numpad-tg   8 kp/   9 kp*   0 kp-
+
+  u kp7    i kp8    o kp9    p kp+    \ lrld
+  a lctl   s lsft   d lalt   h nlck   j kp4    k kp5    l kp6    ; kp+    ' esc
+  n kp0    m kp1    , kp2    . kp3    / ret
+)
